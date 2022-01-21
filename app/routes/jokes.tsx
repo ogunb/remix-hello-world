@@ -1,5 +1,6 @@
 import { User } from "@prisma/client";
 import {
+  Form,
   Link,
   LinksFunction,
   LoaderFunction,
@@ -31,7 +32,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     select: { id: true, name: true },
   });
   const user = await getUser(request);
-
+  console.log({ jokeListItems, user });
   const data: LoaderData = {
     jokeListItems,
     user,
@@ -41,7 +42,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function JokesRoute() {
   const data = useLoaderData<LoaderData>();
-
+  console.log(data);
   return (
     <div className="jokes-layout">
       <header className="jokes-header">
@@ -52,14 +53,14 @@ export default function JokesRoute() {
               <span className="logo-medium">J🤪KES</span>
             </Link>
           </h1>
-          {data.user ? (
+          {data?.user ? (
             <div className="user-info">
               <span>{`Hi ${data.user.username}`}</span>
-              <form action="/logout" method="post">
+              <Form action="/logout" method="post">
                 <button type="submit" className="button">
                   Logout
                 </button>
-              </form>
+              </Form>
             </div>
           ) : (
             <Link to="/login">Login</Link>
