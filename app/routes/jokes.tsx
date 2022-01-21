@@ -71,6 +71,8 @@ export default function JokesRoute() {
         <div className="container">
           <div className="jokes-list">
             <Link to=".">Get a random joke</Link>
+            <br />
+            <Link to="/jokes.rss" reloadDocument>RSS</Link>
             <p>Here are a few more jokes to check out:</p>
             <ul>
               {data.jokeListItems.map((joke) => (
